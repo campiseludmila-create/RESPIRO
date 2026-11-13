@@ -1,2 +1,952 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respiro · Tu equilibrio entre facu, trabajo y descanso</title>
 
-file:///C:/Users/morit/Downloads/landing_page_respiro.html
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Fraunces (toque editorial) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            verde: '#A8E6CF',
+                            violeta: '#D8B4F8',
+                            celeste: '#B4E6FD',
+                            rosa: '#FBCFE8',
+                            crema: '#F8FAFC',
+                            texto: '#1E293B',
+                            textoSuave: '#64748B',
+                            verdeOscuro: '#1B5E43',
+                            violetaOscuro: '#5B21B6',
+                            celesteOscuro: '#0369A1',
+                            rosaOscuro: '#9D174D',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Fraunces', 'serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(216, 180, 248, 0.35)',
+                        'card': '0 10px 30px rgba(0, 0, 0, 0.03)',
+                        'float': '0 25px 50px -12px rgba(0, 0, 0, 0.07)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #1E293B;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bg-soft-gradient {
+            background: linear-gradient(135deg, #F8FAFC 0%, #F3F0FF 45%, #E6F7F0 100%);
+        }
+
+        .bg-gradient-btn {
+            background: linear-gradient(135deg, #A8E6CF 0%, #B4E6FD 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bg-gradient-btn:hover {
+            background: linear-gradient(135deg, #93dbc0 0%, #9fe0fd 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(168, 230, 207, 0.55);
+        }
+
+        /* Micro-animaciones para el planner semanal */
+        .planner-chip {
+            transition: all 0.25s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+        .planner-chip:hover {
+            transform: translateY(-2px);
+        }
+        .planner-chip.completed {
+            opacity: 0.88;
+        }
+    </style>
+</head>
+<body class="antialiased text-brand-texto bg-brand-crema selection:bg-brand-rosa selection:text-brand-texto flex flex-col min-h-screen">
+
+    <!-- Header / Navbar Clean -->
+    <header class="w-full py-6 px-6 max-w-6xl mx-auto flex justify-between items-center z-20">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-brand-verde flex items-center justify-center shadow-sm">
+                <svg class="w-5 h-5 text-brand-verdeOscuro" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+            </div>
+            <span class="text-2xl font-bold tracking-tight text-brand-texto">Respiro</span>
+        </div>
+        <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-brand-textoSuave">
+            <a href="#problema" class="hover:text-brand-texto transition-colors">Tu rutina</a>
+            <a href="#como-funciona" class="hover:text-brand-texto transition-colors">Cómo funciona</a>
+            <a href="#recompensas" class="hover:text-brand-texto transition-colors">Recompensas</a>
+            <a href="#impacto" class="hover:text-brand-texto transition-colors">Por qué existimos</a>
+        </nav>
+        <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/60 shadow-sm text-xs font-semibold text-brand-textoSuave">
+            <span class="w-2 h-2 rounded-full bg-brand-verde animate-pulse"></span>
+            <span>Tu ritmo, sin culpa</span>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section con estética Modular & Planner Interactivo -->
+    <section id="planificador" class="pt-6 pb-16 px-6 md:pt-10 md:pb-24 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Texto del Hero -->
+        <div class="lg:col-span-6 flex flex-col items-start text-left">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-violeta/30 border border-brand-violeta/50 text-xs font-bold text-brand-violetaOscuro mb-6">
+                ✨ Tu tranquilidad es la prioridad
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-brand-texto leading-tight mb-6">
+                Organiza tu semana entre la facu y trabajo, <span class="font-serif italic text-brand-violetaOscuro">sin dejar de lado tu descanso.</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-brand-textoSuave mb-8 leading-relaxed max-w-xl">
+                Un espacio pensado para acompañarte día a día: cumplís tus bloques de estudio y laburo, respetás tus pausas y sumás puntos canjeables en librerías adheridas.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+                <a href="#calendario-widget" 
+                   class="bg-gradient-btn text-brand-texto font-bold text-base px-8 py-4 rounded-2xl shadow-sm flex items-center justify-center gap-3 text-center group">
+                    <svg class="w-5 h-5 text-brand-verdeOscuro group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Organizar mi calendario</span>
+                </a>
+                <a href="#como-funciona" class="px-6 py-4 rounded-2xl bg-white border border-slate-200/80 text-sm font-bold text-brand-texto hover:bg-slate-50 transition-colors text-center">
+                    Ver cómo funciona
+                </a>
+            </div>
+            <p class="text-xs text-brand-textoSuave mt-4 font-medium flex items-center gap-1.5">
+                <span class="inline-block w-2 h-2 rounded-full bg-brand-rosa"></span>
+                Elegí una fecha en el calendario, agregá tus actividades y tildá tus logros.
+            </p>
+        </div>
+
+        <!-- Widget UI Interactiva con Calendario de Fechas y Organizador Diario -->
+        <div id="calendario-widget" class="lg:col-span-6 relative">
+            <div class="absolute -top-6 -left-6 w-36 h-36 bg-brand-rosa/40 rounded-full blur-2xl -z-10"></div>
+            <div class="absolute -bottom-6 -right-6 w-36 h-36 bg-brand-celeste/40 rounded-full blur-2xl -z-10"></div>
+
+            <div class="bg-white rounded-3xl p-5 sm:p-7 border border-slate-200/80 shadow-float">
+                <!-- Top bar con navegación de mes y logros -->
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="changeMonth(-1)" aria-label="Mes anterior" class="w-8 h-8 rounded-xl bg-brand-crema hover:bg-brand-violeta/30 flex items-center justify-center text-brand-texto transition-colors font-bold">
+                            ‹
+                        </button>
+                        <span id="calendar-month-label" class="text-sm font-extrabold text-brand-texto capitalize min-w-[125px] text-center">
+                            Noviembre 2026
+                        </span>
+                        <button type="button" onclick="changeMonth(1)" aria-label="Mes siguiente" class="w-8 h-8 rounded-xl bg-brand-crema hover:bg-brand-violeta/30 flex items-center justify-center text-brand-texto transition-colors font-bold">
+                            ›
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-2 bg-brand-verde/30 border border-brand-verde/60 px-3 py-1 rounded-full">
+                        <span class="text-xs">🌱</span>
+                        <span id="hero-points-badge" class="text-xs font-extrabold text-brand-verdeOscuro">2 logros cumplidos</span>
+                    </div>
+                </div>
+
+                <!-- Grilla de Calendario Mensual -->
+                <div class="mb-5 bg-brand-crema/70 p-3.5 rounded-2xl border border-slate-200/60">
+                    <div class="grid grid-cols-7 text-center text-[11px] font-bold text-brand-textoSuave mb-2">
+                        <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sá</span><span>Do</span>
+                    </div>
+                    <div id="calendar-days-grid" class="grid grid-cols-7 gap-1 text-center">
+                        <!-- Días renderizados dinámicamente con JS -->
+                    </div>
+                </div>
+
+                <!-- Encabezado del día seleccionado + Botón para agregar bloque -->
+                <div class="flex items-center justify-between mb-3">
+                    <div>
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-brand-textoSuave">Rutina del día</p>
+                        <h3 id="selected-date-title" class="text-sm sm:text-base font-extrabold text-brand-texto capitalize">
+                            Hoy
+                        </h3>
+                    </div>
+                    <button type="button" onclick="toggleAddForm()" class="px-3 py-1.5 rounded-xl bg-brand-violeta/35 hover:bg-brand-violeta/55 text-brand-violetaOscuro text-xs font-extrabold transition-colors flex items-center gap-1">
+                        <span>+</span> Agregar bloque
+                    </button>
+                </div>
+
+                <!-- Formulario rápido para agregar actividad al día elegido -->
+                <form id="add-task-form" onsubmit="addNewTask(event)" class="hidden mb-4 p-3.5 rounded-2xl bg-brand-crema border border-slate-200/80 space-y-2.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <input type="text" id="new-task-title" required placeholder="Actividad (ej: Repasar unidad 3)" class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-medium text-brand-texto focus:outline-none focus:border-brand-violetaOscuro">
+                        <input type="text" id="new-task-cat" required placeholder="Categoría libre (ej: Parciales, Gym...)" class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-brand-texto focus:outline-none focus:border-brand-violetaOscuro">
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 flex-1 min-w-[180px]">
+                            <input type="text" id="new-task-time" required placeholder="Horario (ej: 18:30 - 19:30)" class="w-1/2 px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-medium text-brand-texto focus:outline-none focus:border-brand-violetaOscuro">
+                            <label class="w-1/2 flex items-center gap-1.5 px-2.5 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-brand-texto cursor-pointer select-none">
+                                <input type="checkbox" id="new-task-alarm" onchange="toggleAlarmTimeInput()" class="accent-brand-violetaOscuro rounded">
+                                <span>🔔 Alarma 24hs</span>
+                            </label>
+                        </div>
+                        <div id="new-task-alarm-picker" class="hidden flex items-center gap-1 bg-white px-2.5 py-1.5 rounded-xl border border-brand-violeta">
+                            <select id="new-task-alarm-hour" aria-label="Hora 24hs" class="bg-transparent text-xs font-extrabold text-brand-violetaOscuro focus:outline-none cursor-pointer"></select>
+                            <span class="text-xs font-extrabold text-brand-violetaOscuro">:</span>
+                            <select id="new-task-alarm-min" aria-label="Minutos" class="bg-transparent text-xs font-extrabold text-brand-violetaOscuro focus:outline-none cursor-pointer"></select>
+                            <span class="text-[10px] font-bold text-brand-textoSuave ml-0.5">hs</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-2 pt-1">
+                        <button type="button" onclick="toggleAddForm()" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-brand-textoSuave hover:bg-slate-200/50">Cancelar</button>
+                        <button type="submit" class="px-4 py-1.5 rounded-xl bg-brand-verde text-brand-verdeOscuro text-xs font-extrabold hover:opacity-90">Guardar en esta fecha</button>
+                    </div>
+                </form>
+
+                <!-- Aviso visual de alarma suave (sin alert del navegador) -->
+                <div id="alarm-banner" class="hidden mb-3 p-3.5 rounded-2xl bg-brand-violeta/40 border border-brand-violetaOscuro/40 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-lg">🔔</span>
+                        <div>
+                            <p class="text-[11px] font-extrabold uppercase tracking-wider text-brand-violetaOscuro">Recordatorio Respiro · 24hs</p>
+                            <p id="alarm-banner-text" class="text-xs font-bold text-brand-texto">Es momento de tu bloque</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="dismissAlarmBanner()" class="px-3 py-1 rounded-xl bg-white text-xs font-extrabold text-brand-violetaOscuro shadow-sm hover:bg-slate-50">
+                        Entendido
+                    </button>
+                </div>
+
+                <!-- Mini-editor rápido de alarma 24hs para bloques existentes -->
+                <div id="quick-alarm-editor" class="hidden mb-3 p-3 rounded-2xl bg-brand-celeste/30 border border-brand-celesteOscuro/30 flex flex-wrap items-center justify-between gap-2">
+                    <span id="quick-alarm-label" class="text-xs font-bold text-brand-texto truncate max-w-[180px]">Alarma 24hs</span>
+                    <div class="flex items-center gap-1.5">
+                        <div class="flex items-center gap-1 bg-white px-2 py-1 rounded-xl border border-slate-200">
+                            <select id="quick-alarm-hour" aria-label="Hora 24hs" class="bg-transparent text-xs font-extrabold text-brand-celesteOscuro focus:outline-none cursor-pointer"></select>
+                            <span class="text-xs font-extrabold text-brand-celesteOscuro">:</span>
+                            <select id="quick-alarm-min" aria-label="Minutos" class="bg-transparent text-xs font-extrabold text-brand-celesteOscuro focus:outline-none cursor-pointer"></select>
+                            <span class="text-[10px] font-bold text-brand-textoSuave">hs</span>
+                        </div>
+                        <button type="button" onclick="saveQuickAlarm()" class="px-2.5 py-1 rounded-xl bg-brand-celesteOscuro text-white text-xs font-extrabold">Fijar</button>
+                        <button type="button" onclick="removeQuickAlarm()" class="px-2 py-1 rounded-xl bg-white text-brand-textoSuave text-xs font-bold hover:text-rose-600" title="Quitar alarma">✕</button>
+                    </div>
+                </div>
+
+                <!-- Lista de bloques horarios del día seleccionado -->
+                <div id="daily-tasks-list" class="space-y-2.5"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. El Problema -->
+    <section id="problema" class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/70 shadow-card">
+            <span class="text-xs font-extrabold uppercase tracking-widest text-brand-celesteOscuro bg-brand-celeste/40 px-3.5 py-1.5 rounded-full">
+                Lo que nos pasa a todxs
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-brand-texto mt-4 mb-6">
+                Sentís que el día no alcanza y cuando frenás, aparece la culpa.
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-brand-textoSuave leading-relaxed">
+                <div class="p-5 rounded-2xl bg-brand-crema border border-slate-200/60">
+                    <p class="font-extrabold text-brand-texto mb-1.5">📚 Cursada y entregas</p>
+                    <p>Salís del laburo directo a estudiar con la cabeza agotada y sentís que siempre te queda algo pendiente.</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-brand-crema border border-slate-200/60">
+                    <p class="font-extrabold text-brand-texto mb-1.5">💬 Vida social en pausa</p>
+                    <p>Decís "la próxima nos vemos" una y otra vez porque no lográs hacerte un hueco real para tus amigxs.</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-brand-crema border border-slate-200/60">
+                    <p class="font-extrabold text-brand-texto mb-1.5">🔋 Descanso sin culpa</p>
+                    <p>Necesitás recargar energía, pero descansar se siente como perder el tiempo en lugar de cuidarte.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Cómo funciona en 3 pasos -->
+    <section id="como-funciona" class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs font-extrabold uppercase tracking-widest text-brand-violetaOscuro bg-brand-violeta/40 px-3.5 py-1.5 rounded-full">
+                Paso a paso, a tu ritmo
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-brand-texto mt-4">
+                Cómo funciona Respiro
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-3xl p-7 border border-slate-200/70 shadow-card">
+                <div class="w-11 h-11 rounded-2xl bg-brand-celeste/50 text-brand-celesteOscuro font-extrabold flex items-center justify-center mb-5">1</div>
+                <h3 class="text-lg font-extrabold text-brand-texto mb-2">Mapeá tus tiempos</h3>
+                <p class="text-sm text-brand-textoSuave leading-relaxed">
+                    Elegí cada día en tu calendario y armá tus bloques reales de facu, laburo y pendientes con recordatorios suaves.
+                </p>
+            </div>
+            <div class="bg-white rounded-3xl p-7 border border-slate-200/70 shadow-card">
+                <div class="w-11 h-11 rounded-2xl bg-brand-verde/60 text-brand-verdeOscuro font-extrabold flex items-center justify-center mb-5">2</div>
+                <h3 class="text-lg font-extrabold text-brand-texto mb-2">Priorizá tu descanso</h3>
+                <p class="text-sm text-brand-textoSuave leading-relaxed">
+                    Agendá tus pausas como un compromiso más. Cumplir tu descanso vale tanto como terminar un resumen.
+                </p>
+            </div>
+            <div class="bg-white rounded-3xl p-7 border border-slate-200/70 shadow-card">
+                <div class="w-11 h-11 rounded-2xl bg-brand-rosa/60 text-brand-rosaOscuro font-extrabold flex items-center justify-center mb-5">3</div>
+                <h3 class="text-lg font-extrabold text-brand-texto mb-2">Conectá con tu entorno</h3>
+                <p class="text-sm text-brand-textoSuave leading-relaxed">
+                    Hacé espacio para ver a quienes querés y transformá cada logro diario en puntos para tus próximas compras de librería.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3.5 Sección de Recompensas (estilo Pasito) -->
+    <section id="recompensas" class="py-16 px-6 max-w-6xl mx-auto">
+        <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-card">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Columna Izquierda: Billetera de puntos acumulables -->
+                <div class="lg:col-span-5 rounded-3xl p-7 bg-soft-gradient border border-purple-100 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-verdeOscuro bg-brand-verde/60 px-3 py-1 rounded-full">
+                            Recompensas Respiro
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-texto mt-4 mb-3">
+                            Cada logro cumplido te acerca a tu librería favorita
+                        </h2>
+                        <p class="text-sm text-brand-textoSuave leading-relaxed mb-6">
+                            Sin rachas que te presionen ni puntos que venzan. Cada vez que tildás un bloque de tu día, sumás <strong>+50 pts</strong> para canjear en librerías adheridas.
+                        </p>
+                    </div>
+
+                    <div class="bg-white/90 rounded-2xl p-5 border border-slate-200/70 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-brand-textoSuave">Tus puntos acumulados</span>
+                            <span id="wallet-points-display" class="text-2xl font-extrabold text-brand-violetaOscuro">100 pts</span>
+                        </div>
+                        <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-2">
+                            <div id="wallet-progress-bar" class="h-full bg-brand-verde transition-all duration-300" style="width: 40%"></div>
+                        </div>
+                        <p id="wallet-next-goal" class="text-[11px] font-semibold text-brand-textoSuave">
+                            Te faltan 50 pts para tu primer set de resaltadores ✨
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Catálogo visual de canje en librerías adheridas -->
+                <div class="lg:col-span-7 flex flex-col justify-between gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <!-- Recompensa 1: Resaltadores Pastel -->
+                        <div class="rounded-3xl p-5 bg-brand-rosa/25 border border-brand-rosa/70 flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                    <!-- SVG Resaltador -->
+                                    <svg class="w-6 h-6 text-brand-rosaOscuro" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                    </svg>
+                                </div>
+                                <span class="inline-block text-[11px] font-extrabold text-brand-rosaOscuro bg-white/80 px-2.5 py-0.5 rounded-full mb-2">150 pts</span>
+                                <h3 class="font-extrabold text-base text-brand-texto mb-1">Set de resaltadores</h3>
+                                <p class="text-xs text-brand-textoSuave leading-relaxed">Para organizar tus resúmenes de la facu con colores suaves.</p>
+                            </div>
+                            <p class="mt-4 text-[11px] font-bold text-brand-rosaOscuro">En librerías adheridas</p>
+                        </div>
+
+                        <!-- Recompensa 2: Cuaderno / Agenda -->
+                        <div class="rounded-3xl p-5 bg-brand-violeta/25 border border-brand-violeta/70 flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                    <!-- SVG Cuaderno -->
+                                    <svg class="w-6 h-6 text-brand-violetaOscuro" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                </div>
+                                <span class="inline-block text-[11px] font-extrabold text-brand-violetaOscuro bg-white/80 px-2.5 py-0.5 rounded-full mb-2">250 pts</span>
+                                <h3 class="font-extrabold text-base text-brand-texto mb-1">Cuaderno o planner</h3>
+                                <p class="text-xs text-brand-textoSuave leading-relaxed">Elegí el cuaderno que más te guste para tus apuntes o notas.</p>
+                            </div>
+                            <p class="mt-4 text-[11px] font-bold text-brand-violetaOscuro">En librerías adheridas</p>
+                        </div>
+
+                        <!-- Recompensa 3: Libro o Lectura -->
+                        <div class="rounded-3xl p-5 bg-brand-celeste/25 border border-brand-celeste/70 flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-4 shadow-sm">
+                                    <!-- SVG Ticket / Regalo -->
+                                    <svg class="w-6 h-6 text-brand-celesteOscuro" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                                    </svg>
+                                </div>
+                                <span class="inline-block text-[11px] font-extrabold text-brand-celesteOscuro bg-white/80 px-2.5 py-0.5 rounded-full mb-2">400 pts</span>
+                                <h3 class="font-extrabold text-base text-brand-texto mb-1">Voucher en libros</h3>
+                                <p class="text-xs text-brand-textoSuave leading-relaxed">Para llevarte esa novela o material de estudio que venías buscando.</p>
+                            </div>
+                            <p class="mt-4 text-[11px] font-bold text-brand-celesteOscuro">En librerías adheridas</p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta explicativa inferior de cómo es el canje -->
+                    <div class="rounded-3xl p-6 sm:p-7 bg-brand-verde/25 border border-brand-verde/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-2xl bg-white flex items-center justify-center shrink-0 text-xl shadow-sm">
+                                🏪
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-base text-brand-texto">¿Cómo los canjeás?</h4>
+                                <p class="text-xs sm:text-sm text-brand-textoSuave mt-1 leading-relaxed">
+                                    Mostrás tu código desde Respiro en cualquiera de nuestras librerías adheridas y elegís tus artículos de estudio o lectura favoritos. Un mimo real por cuidar tu rutina.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Por qué existimos / Manifiesto de Impacto -->
+    <section id="impacto" class="py-16 px-6 max-w-4xl mx-auto">
+        <div class="p-8 sm:p-14 rounded-3xl bg-soft-gradient border border-purple-100 shadow-soft text-center relative overflow-hidden">
+            <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mx-auto mb-6 text-2xl">
+                🌸
+            </div>
+
+            <span class="text-xs font-extrabold uppercase tracking-widest text-brand-rosaOscuro bg-brand-rosa/50 px-3.5 py-1.5 rounded-full">
+                Por qué existimos
+            </span>
+
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-brand-texto mt-4 mb-6 leading-tight">
+                Para que la gente que estudia y trabaja encuentre un equilibrio entre ambas y su vida social.
+            </h2>
+
+            <p class="text-base sm:text-lg text-brand-textoSuave leading-relaxed max-w-2xl mx-auto mb-4">
+                Creemos que cumplir con tus responsabilidades no debería costarte tus vínculos ni tu salud mental.
+            </p>
+
+            <p class="text-sm sm:text-base font-semibold text-brand-texto max-w-xl mx-auto">
+                Estamos acá para cuidarte y acompañarte con calma, celebrando cada pequeño paso que das en tu día a día.
+            </p>
+        </div>
+    </section>
+
+    <!-- 5. CTA Final con Botón Repetido -->
+    <section class="py-16 px-6 max-w-3xl mx-auto text-center">
+        <div class="flex flex-col items-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-texto mb-4">
+                Empezá hoy a darle un respiro a tu semana
+            </h2>
+            <p class="text-brand-textoSuave text-base sm:text-lg mb-8 max-w-md">
+                Organizá tus bloques, respetá tu descanso y empezá a sumar puntos para tus próximas visitas a la librería.
+            </p>
+
+            <a href="#planificador" 
+               class="bg-gradient-btn text-brand-texto font-bold text-lg px-9 py-4 sm:py-5 rounded-2xl shadow-sm flex items-center justify-center gap-3 w-full sm:w-auto text-center group">
+                <svg class="w-6 h-6 text-brand-verdeOscuro group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+                <span>Armar mi rutina ahora</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer Clean -->
+    <footer class="mt-auto py-8 text-center text-xs text-brand-textoSuave border-t border-slate-200/60 bg-white">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-brand-verde flex items-center justify-center text-xs font-bold text-brand-verdeOscuro">R</div>
+                <span class="font-bold text-brand-texto">Respiro</span>
+            </div>
+            <p>© Respiro · Cuidando tu equilibrio entre el estudio, el trabajo y tu descanso.</p>
+        </div>
+    </footer>
+
+    <!-- Lógica ligera para interacción en el planificador, alarmas 24hs y simulador de puntos -->
+    <script>
+        let currentPoints = 100;
+
+        // Estado del calendario con fecha actual
+        const today = new Date();
+        let viewYear = today.getFullYear();
+        let viewMonth = today.getMonth();
+        let selectedDateKey = formatDateKey(today);
+
+        const monthNames = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+        const categoryStyles = {
+            Laburo: {
+                card: 'bg-brand-celeste/30 border-brand-celeste/70',
+                time: 'text-brand-celesteOscuro',
+                badge: 'bg-white/90 text-brand-celesteOscuro',
+                checkDone: 'bg-brand-celesteOscuro text-white',
+                checkPending: 'bg-white border-2 border-brand-celesteOscuro text-transparent',
+                dot: 'bg-brand-celesteOscuro'
+            },
+            Facu: {
+                card: 'bg-brand-violeta/30 border-brand-violeta/70',
+                time: 'text-brand-violetaOscuro',
+                badge: 'bg-white/90 text-brand-violetaOscuro',
+                checkDone: 'bg-brand-violetaOscuro text-white',
+                checkPending: 'bg-white border-2 border-brand-violetaOscuro text-transparent',
+                dot: 'bg-brand-violetaOscuro'
+            },
+            Descanso: {
+                card: 'bg-brand-verde/35 border-brand-verde',
+                time: 'text-brand-verdeOscuro',
+                badge: 'bg-brand-verdeOscuro text-white',
+                checkDone: 'bg-brand-verdeOscuro text-white',
+                checkPending: 'bg-white border-2 border-brand-verdeOscuro text-transparent',
+                dot: 'bg-brand-verdeOscuro'
+            },
+            Amigos: {
+                card: 'bg-brand-rosa/35 border-brand-rosa/80',
+                time: 'text-brand-rosaOscuro',
+                badge: 'bg-white/90 text-brand-rosaOscuro',
+                checkDone: 'bg-brand-rosaOscuro text-white',
+                checkPending: 'bg-white border-2 border-brand-rosaOscuro text-transparent',
+                dot: 'bg-brand-rosaOscuro'
+            }
+        };
+
+        // Asigna paleta pastel consistente a cualquier categoría personalizada que escriba el usuario
+        const customPalettes = Object.values(categoryStyles);
+        function getCategoryStyle(categoryName) {
+            if (categoryStyles[categoryName]) return categoryStyles[categoryName];
+            let hash = 0;
+            for (let i = 0; i < categoryName.length; i++) {
+                hash = categoryName.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return customPalettes[Math.abs(hash) % customPalettes.length];
+        }
+
+        // Rutinas iniciales precargadas para hoy y próximos días
+        function getTomorrowKey(offsetDays) {
+            const d = new Date(today);
+            d.setDate(today.getDate() + offsetDays);
+            return formatDateKey(d);
+        }
+
+        const scheduleData = {
+            [selectedDateKey]: [
+                { id: 1, time: '09:00 - 17:00', title: 'Cumplir jornada de trabajo', category: 'Laburo', alarm: '', done: true },
+                { id: 2, time: '18:00 - 20:00', title: 'Repasar apuntes sin celular', category: 'Facu', alarm: '18:00', done: true },
+                { id: 3, time: '20:15 - 21:30', title: 'Respetar pausa y desconectar', category: 'Descanso', alarm: '20:15', done: false },
+                { id: 4, time: 'Tiempo libre', title: 'Mates o charla con amigxs', category: 'Amigos', alarm: '', done: false }
+            ],
+            [getTomorrowKey(1)]: [
+                { id: 5, time: '09:00 - 17:00', title: 'Jornada laboral', category: 'Laburo', alarm: '08:50', done: false },
+                { id: 6, time: '18:30 - 20:30', title: 'Cursada en la facu', category: 'Facu', alarm: '18:15', done: false },
+                { id: 7, time: '21:00 - 22:00', title: 'Cena tranquila sin pantallas', category: 'Descanso', alarm: '', done: false }
+            ],
+            [getTomorrowKey(2)]: [
+                { id: 8, time: '10:00 - 12:00', title: 'Armar resumen de la semana', category: 'Facu', alarm: '', done: false },
+                { id: 9, time: '17:00 - 19:30', title: 'Merienda y salida con amigxs', category: 'Amigos', alarm: '16:45', done: false }
+            ]
+        };
+
+        function formatDateKey(dateObj) {
+            const y = dateObj.getFullYear();
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function formatHumanDate(dateKey) {
+            if (dateKey === formatDateKey(today)) return 'Hoy · Tu rutina';
+            const [y, m, d] = dateKey.split('-').map(Number);
+            const dateObj = new Date(y, m - 1, d);
+            return dateObj.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
+
+        function changeMonth(delta) {
+            viewMonth += delta;
+            if (viewMonth < 0) {
+                viewMonth = 11;
+                viewYear--;
+            } else if (viewMonth > 11) {
+                viewMonth = 0;
+                viewYear++;
+            }
+            renderCalendar();
+        }
+
+        function selectDate(dateKey) {
+            selectedDateKey = dateKey;
+            renderCalendar();
+            renderTasksForSelectedDate();
+        }
+
+        function renderCalendar() {
+            const monthLabel = document.getElementById('calendar-month-label');
+            const grid = document.getElementById('calendar-days-grid');
+            if (!monthLabel || !grid) return;
+
+            monthLabel.textContent = `${monthNames[viewMonth]} ${viewYear}`;
+            grid.innerHTML = '';
+
+            const firstDayOfMonth = new Date(viewYear, viewMonth, 1).getDay();
+            // Convertir domingo (0) a índice 6 para semana empezando en lunes
+            const startOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+            const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+            const todayKey = formatDateKey(today);
+
+            for (let i = 0; i < startOffset; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'h-9';
+                grid.appendChild(emptyCell);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cellDate = new Date(viewYear, viewMonth, day);
+                const cellKey = formatDateKey(cellDate);
+                const isSelected = cellKey === selectedDateKey;
+                const isToday = cellKey === todayKey;
+                const tasks = scheduleData[cellKey] || [];
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => selectDate(cellKey);
+                btn.className = `h-9 rounded-xl flex flex-col items-center justify-center text-xs font-bold transition-all relative ${
+                    isSelected
+                        ? 'bg-brand-violetaOscuro text-white shadow-sm scale-105'
+                        : isToday
+                            ? 'bg-brand-verde/50 text-brand-verdeOscuro border border-brand-verdeOscuro/30'
+                            : 'hover:bg-white text-brand-texto'
+                }`;
+
+                const numSpan = document.createElement('span');
+                numSpan.textContent = day;
+                btn.appendChild(numSpan);
+
+                // Puntitos indicadores de bloques cargados en esa fecha
+                if (tasks.length > 0) {
+                    const dotsWrap = document.createElement('div');
+                    dotsWrap.className = 'flex gap-0.5 mt-0.5';
+                    tasks.slice(0, 3).forEach(t => {
+                        const dot = document.createElement('span');
+                        const style = getCategoryStyle(t.category);
+                        dot.className = `w-1 h-1 rounded-full ${isSelected ? 'bg-white' : style.dot}`;
+                        dotsWrap.appendChild(dot);
+                    });
+                    btn.appendChild(dotsWrap);
+                }
+
+                grid.appendChild(btn);
+            }
+        }
+
+        function renderTasksForSelectedDate() {
+            const titleEl = document.getElementById('selected-date-title');
+            const listEl = document.getElementById('daily-tasks-list');
+            if (!titleEl || !listEl) return;
+
+            titleEl.textContent = formatHumanDate(selectedDateKey);
+            const tasks = scheduleData[selectedDateKey] || [];
+
+            if (tasks.length === 0) {
+                listEl.innerHTML = `
+                    <div class="p-6 rounded-2xl bg-brand-crema/80 border border-dashed border-slate-300 text-center">
+                        <p class="text-xs font-bold text-brand-texto mb-1">Día libre de bloques por ahora 🌿</p>
+                        <p class="text-xs text-brand-textoSuave">Tocá "+ Agregar bloque" para organizar tu facu, trabajo o descanso en esta fecha.</p>
+                    </div>
+                `;
+                updateCounters();
+                return;
+            }
+
+            listEl.innerHTML = tasks.map(task => {
+                const st = getCategoryStyle(task.category);
+                const alarmBadge = task.alarm
+                    ? `<button type="button" onclick="event.stopPropagation(); openQuickAlarmEditor(${task.id})" title="Editar o probar alarma 24hs (${task.alarm} hs)" class="text-[11px] px-2 py-0.5 rounded-lg bg-white/80 hover:bg-white font-bold ${st.time} flex items-center gap-1 transition-colors">🔔 ${task.alarm} hs</button>`
+                    : `<button type="button" onclick="event.stopPropagation(); openQuickAlarmEditor(${task.id})" title="Programar alarma 24hs a cualquier hora" class="text-[11px] px-2 py-0.5 rounded-lg bg-white/50 hover:bg-white text-brand-textoSuave transition-colors">🔕 +24h</button>`;
+
+                return `
+                    <div onclick="toggleTaskById(${task.id})" class="planner-chip ${task.done ? 'completed' : ''} p-3 rounded-2xl border ${st.card} flex justify-between items-center gap-2">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-6 h-6 rounded-xl flex items-center justify-center transition-colors shrink-0 ${task.done ? st.checkDone : st.checkPending}">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-[11px] font-extrabold ${st.time}">${task.time}</p>
+                                <p class="text-xs sm:text-sm font-bold text-brand-texto truncate">${task.title}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            ${alarmBadge}
+                            <span class="text-[11px] px-2.5 py-1 rounded-lg font-bold ${st.badge}">${task.category}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateCounters();
+        }
+
+        function toggleTaskById(taskId) {
+            const tasks = scheduleData[selectedDateKey] || [];
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.done = !task.done;
+            currentPoints = task.done ? currentPoints + 50 : Math.max(0, currentPoints - 50);
+
+            renderTasksForSelectedDate();
+        }
+
+        function toggleAddForm() {
+            const form = document.getElementById('add-task-form');
+            if (!form) return;
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                document.getElementById('new-task-title')?.focus();
+            }
+        }
+
+        function toggleAlarmTimeInput() {
+            const checkbox = document.getElementById('new-task-alarm');
+            const pickerWrap = document.getElementById('new-task-alarm-picker');
+            if (!checkbox || !pickerWrap) return;
+            if (checkbox.checked) {
+                pickerWrap.classList.remove('hidden');
+            } else {
+                pickerWrap.classList.add('hidden');
+            }
+        }
+
+        // Inicializa selectores de 24 horas (00 a 23 hs y 00 a 59 min)
+        function populate24hSelects(hourSelectId, minSelectId, defaultHour = '09', defaultMin = '00') {
+            const hSel = document.getElementById(hourSelectId);
+            const mSel = document.getElementById(minSelectId);
+            if (!hSel || !mSel) return;
+
+            hSel.innerHTML = '';
+            for (let h = 0; h < 24; h++) {
+                const val = String(h).padStart(2, '0');
+                const opt = document.createElement('option');
+                opt.value = val;
+                opt.textContent = val;
+                if (val === defaultHour) opt.selected = true;
+                hSel.appendChild(opt);
+            }
+
+            mSel.innerHTML = '';
+            for (let m = 0; m < 60; m++) {
+                const val = String(m).padStart(2, '0');
+                const opt = document.createElement('option');
+                opt.value = val;
+                opt.textContent = val;
+                if (val === defaultMin) opt.selected = true;
+                mSel.appendChild(opt);
+            }
+        }
+
+        populate24hSelects('new-task-alarm-hour', 'new-task-alarm-min', '18', '30');
+        populate24hSelects('quick-alarm-hour', 'quick-alarm-min', '09', '00');
+
+        let editingAlarmTaskId = null;
+
+        function openQuickAlarmEditor(taskId) {
+            const tasks = scheduleData[selectedDateKey] || [];
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            editingAlarmTaskId = taskId;
+            const editor = document.getElementById('quick-alarm-editor');
+            const label = document.getElementById('quick-alarm-label');
+            if (!editor || !label) return;
+
+            label.textContent = `🔔 ${task.title}`;
+
+            let defH = '09';
+            let defM = '00';
+            if (task.alarm && task.alarm.includes(':')) {
+                [defH, defM] = task.alarm.split(':');
+            } else {
+                const match = task.time.match(/(\d{1,2}):(\d{2})/);
+                if (match) {
+                    defH = match[1].padStart(2, '0');
+                    defM = match[2];
+                }
+            }
+
+            populate24hSelects('quick-alarm-hour', 'quick-alarm-min', defH, defM);
+            editor.classList.remove('hidden');
+        }
+
+        function saveQuickAlarm() {
+            if (editingAlarmTaskId === null) return;
+            const tasks = scheduleData[selectedDateKey] || [];
+            const task = tasks.find(t => t.id === editingAlarmTaskId);
+            if (!task) return;
+
+            const h = document.getElementById('quick-alarm-hour')?.value || '09';
+            const m = document.getElementById('quick-alarm-min')?.value || '00';
+            task.alarm = `${h}:${m}`;
+
+            document.getElementById('quick-alarm-editor')?.classList.add('hidden');
+            renderTasksForSelectedDate();
+            triggerGentleAlarm(task.title, task.alarm, true);
+            editingAlarmTaskId = null;
+        }
+
+        function removeQuickAlarm() {
+            if (editingAlarmTaskId === null) return;
+            const tasks = scheduleData[selectedDateKey] || [];
+            const task = tasks.find(t => t.id === editingAlarmTaskId);
+            if (task) {
+                task.alarm = '';
+            }
+            document.getElementById('quick-alarm-editor')?.classList.add('hidden');
+            renderTasksForSelectedDate();
+            editingAlarmTaskId = null;
+        }
+
+        // Sonido suave de campanita usando Web Audio API (sin archivos externos)
+        function playGentleChime() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioCtx();
+                const now = ctx.currentTime;
+
+                [523.25, 659.25].forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.18);
+                    gain.gain.setValueAtTime(0.001, now + idx * 0.18);
+                    gain.gain.exponentialRampToValueAtTime(0.08, now + idx * 0.18 + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.18 + 0.9);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.18);
+                    osc.stop(now + idx * 0.18 + 0.95);
+                });
+            } catch (e) {
+                // Fallback silencioso si el navegador bloquea audio
+            }
+        }
+
+        function triggerGentleAlarm(title, alarmTime, isSetupFeedback = false) {
+            const banner = document.getElementById('alarm-banner');
+            const bannerText = document.getElementById('alarm-banner-text');
+            if (banner && bannerText) {
+                bannerText.textContent = isSetupFeedback
+                    ? `Alarma suave activada a las ${alarmTime} hs para "${title}"`
+                    : `Sonando recordatorio (${alarmTime} hs): "${title}"`;
+                banner.classList.remove('hidden');
+            }
+            playGentleChime();
+        }
+
+        function dismissAlarmBanner() {
+            document.getElementById('alarm-banner')?.classList.add('hidden');
+        }
+
+        function addNewTask(event) {
+            event.preventDefault();
+            const titleInput = document.getElementById('new-task-title');
+            const timeInput = document.getElementById('new-task-time');
+            const catInput = document.getElementById('new-task-cat');
+            const alarmCheck = document.getElementById('new-task-alarm');
+
+            if (!titleInput.value.trim()) return;
+
+            if (!scheduleData[selectedDateKey]) {
+                scheduleData[selectedDateKey] = [];
+            }
+
+            const chosenCategory = catInput.value.trim() || 'Personal';
+            const alarmHour = document.getElementById('new-task-alarm-hour')?.value || '09';
+            const alarmMin = document.getElementById('new-task-alarm-min')?.value || '00';
+            const chosenAlarm = alarmCheck?.checked ? `${alarmHour}:${alarmMin}` : '';
+
+            scheduleData[selectedDateKey].push({
+                id: Date.now(),
+                time: timeInput.value.trim() || 'Horario flexible',
+                title: titleInput.value.trim(),
+                category: chosenCategory,
+                alarm: chosenAlarm,
+                done: false
+            });
+
+            titleInput.value = '';
+            timeInput.value = '';
+            catInput.value = '';
+            if (alarmCheck) alarmCheck.checked = false;
+            document.getElementById('new-task-alarm-picker')?.classList.add('hidden');
+            renderCalendar();
+            renderTasksForSelectedDate();
+
+            if (chosenAlarm) {
+                triggerGentleAlarm(scheduleData[selectedDateKey].slice(-1)[0].title, chosenAlarm, true);
+            }
+        }
+
+        // Verificación periódica de alarmas del día actual
+        let lastTriggeredMinute = '';
+        setInterval(() => {
+            const now = new Date();
+            const todayKey = formatDateKey(now);
+            const currentHHMM = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            if (currentHHMM === lastTriggeredMinute) return;
+
+            const todayTasks = scheduleData[todayKey] || [];
+            const dueTask = todayTasks.find(t => !t.done && t.alarm === currentHHMM);
+            if (dueTask) {
+                lastTriggeredMinute = currentHHMM;
+                triggerGentleAlarm(dueTask.title, dueTask.alarm, false);
+            }
+        }, 15000);
+
+        function updateCounters() {
+            let totalDone = 0;
+            Object.values(scheduleData).forEach(list => {
+                totalDone += list.filter(t => t.done).length;
+            });
+
+            const heroBadge = document.getElementById('hero-points-badge');
+            if (heroBadge) {
+                heroBadge.textContent = `${totalDone} ${totalDone === 1 ? 'logro cumplido' : 'logros cumplidos'}`;
+            }
+
+            const walletPoints = document.getElementById('wallet-points-display');
+            const progressBar = document.getElementById('wallet-progress-bar');
+            const nextGoal = document.getElementById('wallet-next-goal');
+
+            if (walletPoints) walletPoints.textContent = `${currentPoints} pts`;
+            if (progressBar) {
+                const pct = Math.min(100, Math.round((currentPoints / 250) * 100));
+                progressBar.style.width = `${pct}%`;
+            }
+            if (nextGoal) {
+                if (currentPoints < 150) {
+                    nextGoal.textContent = `Te faltan ${150 - currentPoints} pts para tu primer set de resaltadores ✨`;
+                } else if (currentPoints < 250) {
+                    nextGoal.textContent = `¡Ya podés canjear resaltadores! Faltan ${250 - currentPoints} pts para un cuaderno 📓`;
+                } else {
+                    nextGoal.textContent = `¡Tenés puntos listos para canjear en librerías adheridas! 🎉`;
+                }
+            }
+        }
+
+        // Inicializar vista del calendario y bloques del día al cargar
+        renderCalendar();
+        renderTasksForSelectedDate();
+    </script>
+</body>
+</html>
